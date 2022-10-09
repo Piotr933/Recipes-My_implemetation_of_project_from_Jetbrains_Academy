@@ -14,9 +14,9 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
 @NoArgsConstructor
 @Table
+@AllArgsConstructor
 public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,21 +57,15 @@ public class Recipe {
     @OrderColumn
     String[] directions;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_email")
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
-
     @NotEmpty
     @NotNull
-    public Recipe(String name, String category, String description, String[] ingredients, String[] directions) {
-        this.name = name;
-        this.category = category;
-        this.description = description;
-        this.ingredients = ingredients;
-        this.directions = directions;
-    }
 
-    public Recipe(Long id, String name, String category, LocalDateTime date, String description,String[] ingredients,
+    public Recipe(Long id, String name, String category, LocalDateTime date, String description,
+                  @NotEmpty @NotNull @Size(min = 1) String[] ingredients, @Size(min = 1) @NotNull @NotEmpty
                   String[] directions) {
         this.id = id;
         this.name = name;

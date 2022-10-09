@@ -10,31 +10,31 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 
 public class UserService implements UserDetailsService {
+
     private final UserRepo userRepo;
 
-    private final RecipesRepo recipesRepo;
     public void registerUser(User user) {
         userRepo.save(user);
     }
-
-    public boolean userExist(String name) {
-        return userRepo.existsById(name);
-    }
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepo.findByEmail(username);
+        User user = userRepo.getByEmail(username);
         if (user == null) {
             throw new UsernameNotFoundException("Not found: " + username);
         }
         return new UserDetailsImpl(user);
     }
-    public User getUserTest(String name) {
-        return userRepo.findByEmail(name);
+    public boolean userExist(String email) {
+        for (User user : userRepo.findAll()) {
+            if (user.email.equals(email)) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    public void assignRecipe(String email , Long id){
-        User user = userRepo.findByEmail(email);
+    public User getByEmail(String email) {
+        return userRepo.getByEmail(email);
     }
 }
 

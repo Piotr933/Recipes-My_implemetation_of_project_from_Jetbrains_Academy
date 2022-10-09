@@ -1,6 +1,5 @@
 package com.piotrzawada.Recipes;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -17,24 +16,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     UserDetailsService userDetailsService;
 
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .userDetailsService(userDetailsService) // user store 1
+                .userDetailsService(userDetailsService)// user store 1
                 .passwordEncoder(getEncoder());
 
         auth
                 .inMemoryAuthentication() // user store 2
-                .withUser("Admin").password("admin").roles("ADMIN", "USER")
+                .withUser("Admin").password("admin").roles("ADMIN")
                 .and().passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .mvcMatchers("/api/test").hasRole("ADMIN")
-                .mvcMatchers("/register").permitAll()
-                .mvcMatchers("/h2-console").permitAll()
+                .mvcMatchers("/api/recipe/**").hasAnyRole("USER","ADMIN")
+                .mvcMatchers("/api/register").permitAll()
+                .mvcMatchers("/h2-console").hasRole("ADMIN")
                 .anyRequest().permitAll()
                 .and()
                 .csrf().disable()
@@ -42,7 +40,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .frameOptions().disable()
                 .and()
                 .httpBasic();
-
     }
     @Bean
     public PasswordEncoder getEncoder() {
