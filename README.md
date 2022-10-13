@@ -1,6 +1,6 @@
 # Recipes
 
-My implementation of Graduate project of Jetbrains Academy - Java Backend Developer
+My implementation project from Jetbrains Academy - Java Backend Developer
 
 This is a Spring Boot project.During this project I learned about JSON, REST API, Spring Boot Security,
 H2 database, LocalDateTime, Project Lombok, and other concepts useful for the backend.
