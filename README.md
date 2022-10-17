@@ -5,6 +5,10 @@ My implementation project from Jetbrains Academy - Java Backend Developer
 This is a Spring Boot project.During this project I learned about JSON, REST API, Spring Boot Security,
 H2 database, LocalDateTime, Project Lombok, and other concepts useful for the backend.
 
+## Description
+
+This program stores all recipes in one place. Create a multi-user web service with Spring Boot that allows storing, retrieving, updating, and deleting recipes.
+
 ## Installation
 ```bash
 https://github.com/Piotr933/Recipes-My_implemetation_of_project_from_Jetbrains_Academy.git
