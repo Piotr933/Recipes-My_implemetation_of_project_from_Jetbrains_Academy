@@ -73,7 +73,6 @@ public class RecipesController {
         return new ResponseEntity<>("(Not found)", HttpStatus.NOT_FOUND);
     }
 
-
     @PutMapping("/{id}")
     public ResponseEntity<?> putRecipe(@AuthenticationPrincipal UserDetails userDetails,
                                        @Valid @RequestBody Recipe putRecipe, @PathVariable long id) {

@@ -15,6 +15,7 @@ public class RecipesService {
 
     public ArrayList<Recipe> recipeByName(String name) {
         ArrayList<Recipe> recipeArrayList = new ArrayList<Recipe>();
+
         for (Recipe recipe : recipesRepo.findAll()) {
             if (recipe.getName().toLowerCase().contains(name.toLowerCase())) {
                 recipeArrayList.add(recipe);
@@ -26,6 +27,7 @@ public class RecipesService {
 
     public ArrayList<Recipe> recipeByCategory(String category) {
         ArrayList<Recipe> recipeArrayList = new ArrayList<Recipe>();
+
         for (Recipe recipe : recipesRepo.findAll()) {
             if (recipe.getCategory().toLowerCase().equals(category.toLowerCase())) {
                 recipeArrayList.add(recipe);
