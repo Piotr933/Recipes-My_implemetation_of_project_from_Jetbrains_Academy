@@ -13,33 +13,19 @@ public class RecipesService {
         return recipesRepo.findById(id);
     }
 
-    public ArrayList<Recipe> recipeByName(String name) {
-        ArrayList<Recipe> recipeArrayList = new ArrayList<Recipe>();
+    public List<Recipe> recipeByName(String name) {
+         return recipesRepo.findAllByNameContainingIgnoreCaseOrderByDateDesc(name);
 
-        for (Recipe recipe : recipesRepo.findAll()) {
-            if (recipe.getName().toLowerCase().contains(name.toLowerCase())) {
-                recipeArrayList.add(recipe);
-            }
-        }
-        Collections.reverse(recipeArrayList);
-        return recipeArrayList;
+    }
+    public List<Recipe> recipeByCategory(String category) {
+        return recipesRepo.findByCategoryIgnoreCaseOrderByDateDesc(category);
     }
 
-    public ArrayList<Recipe> recipeByCategory(String category) {
-        ArrayList<Recipe> recipeArrayList = new ArrayList<Recipe>();
-
-        for (Recipe recipe : recipesRepo.findAll()) {
-            if (recipe.getCategory().toLowerCase().equals(category.toLowerCase())) {
-                recipeArrayList.add(recipe);
-            }
-        }
-        Collections.reverse(recipeArrayList);
-        return recipeArrayList;
-    }
     @Transactional
     public void saveRecipe(Recipe recipe) {
         recipesRepo.save(recipe);
     }
+
     @Transactional
     public void deleteRecipe(Long id) {
         recipesRepo.deleteById(id);
