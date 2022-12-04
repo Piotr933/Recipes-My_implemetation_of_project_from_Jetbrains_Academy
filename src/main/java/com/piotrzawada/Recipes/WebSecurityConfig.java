@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
@@ -21,18 +20,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth
                 .userDetailsService(userDetailsService)// user store 1
                 .passwordEncoder(getEncoder());
-
-        auth
-                .inMemoryAuthentication() // user store 2
-                .withUser("Admin").password("admin").roles("ADMIN")
-                .and().passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .mvcMatchers("/api/recipe/**").hasAnyRole("USER","ADMIN")
+                .mvcMatchers("/api/recipe/**").hasAnyRole("USER")
                 .mvcMatchers("/api/register").permitAll()
-                .mvcMatchers("/h2-console").hasRole("ADMIN")
+                .mvcMatchers("/h2-console/**").permitAll()
                 .anyRequest().permitAll()
                 .and()
                 .csrf().disable()
