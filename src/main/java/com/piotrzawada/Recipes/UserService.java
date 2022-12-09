@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -24,17 +25,15 @@ public class UserService implements UserDetailsService {
         return new UserDetailsImpl(user);
     }
 
-    public boolean userExist(String email) {
-        for (User user : userRepo.findAll()) {
-            if (user.email.equals(email)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public User getByEmail(String email) {
         return userRepo.getByEmail(email);
     }
+
+    public boolean userExist(String email) {
+        Optional<User> user = Optional.ofNullable(userRepo.getByEmail(email));
+        return user.isPresent();
+    }
 }
+
+
 
