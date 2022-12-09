@@ -19,7 +19,6 @@ public class RecipesController {
     @Autowired
     UserService userService;
 
-
     public RecipesController(@Autowired RecipesService recipesService) {
         this.recipesService = recipesService;
     }
@@ -31,14 +30,12 @@ public class RecipesController {
         if (recipe.isEmpty()) {
             return new ResponseEntity<>("(Not found)", HttpStatus.NOT_FOUND);
         }
-
         return new ResponseEntity<>(recipe, HttpStatus.OK);
     }
 
     @GetMapping("/search/")
     public ResponseEntity<?> searchRecipe(@RequestParam(required = false) String name,
                                           @RequestParam(required = false) String category) {
-
         if (name == null && category == null || name != null && category != null){    //must add some in case when parameters are not valid
             return new ResponseEntity<>("(Bad Request)", HttpStatus.BAD_REQUEST);
         }

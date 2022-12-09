@@ -9,6 +9,7 @@ import java.util.*;
 @AllArgsConstructor
 public class RecipesService {
     private final RecipesRepo recipesRepo;
+
     public Optional<Recipe> getRecipe(Long id){
         return recipesRepo.findById(id);
     }

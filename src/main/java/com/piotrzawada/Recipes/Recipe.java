@@ -22,6 +22,7 @@ public class Recipe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
     Long id;
+
     @NotBlank
     @NotEmpty
     @NotNull
@@ -61,9 +62,9 @@ public class Recipe {
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
+
     @NotEmpty
     @NotNull
-
     public Recipe(Long id, String name, String category, LocalDateTime date, String description,
                   @NotEmpty @NotNull @Size(min = 1) String[] ingredients, @Size(min = 1) @NotNull @NotEmpty
                   String[] directions) {

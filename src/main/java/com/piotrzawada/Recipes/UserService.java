@@ -8,14 +8,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-
 public class UserService implements UserDetailsService {
-
     private final UserRepo userRepo;
 
     public void registerUser(User user) {
         userRepo.save(user);
     }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepo.getByEmail(username);
@@ -24,6 +23,7 @@ public class UserService implements UserDetailsService {
         }
         return new UserDetailsImpl(user);
     }
+
     public boolean userExist(String email) {
         for (User user : userRepo.findAll()) {
             if (user.email.equals(email)) {
